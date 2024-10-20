@@ -90,8 +90,9 @@ WSGI_APPLICATION = 'abm_ispc.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
+        default='postgresql://abm_masc_yipt_user:4Er53wqX49qTtHDeq0DZk1I8Wih2yMpI@dpg-cs9esk88fa8c73c9f0kg-a/abm_masc_yipt',
+        conn_max_age=600,
+        engine='django.db.backends.postgresql'
     )
 }
 
@@ -175,4 +176,4 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 # Add this at the end of the file
-from rest_framework.authtoken.models import Token
+#from rest_framework.authtoken.models import Token
