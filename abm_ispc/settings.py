@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'abm_ispc.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://abm_masc_yipt_user:4Er53wqX49qTtHDeq0DZk1I8Wih2yMpI@dpg-cs9esk88fa8c73c9f0kg-a/abm_masc_yipt',
+        default='postgresql://abm_masc_2eda_user:6MzbLQuu45OmZ1F2zAi1NKZ1L4O3nNk9@dpg-csa70og8fa8c73ckuag0-a/abm_masc_2eda',
         conn_max_age=600,
         engine='django.db.backends.postgresql'
     )
