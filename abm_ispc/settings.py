@@ -174,7 +174,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
-    "//https://masc-yps4.onrender.com",
+    "https://masc-yps4.onrender.com",
 ]
 
 
