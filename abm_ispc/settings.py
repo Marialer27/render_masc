@@ -170,9 +170,12 @@ REST_FRAMEWORK = {
 }
 
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_WHITELIST = ["http://localhost:4200"]
-CORS_ALLOW_CREDENTIALS = True
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "https://https://masc-yps4.onrender.com",
+]
 
 
 # Add this at the end of the file
