@@ -171,6 +171,11 @@ REST_FRAMEWORK = {
 
 
 
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+CORS_ALLOW_HEADERS = ["Authorization", "Content-Type"]
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
