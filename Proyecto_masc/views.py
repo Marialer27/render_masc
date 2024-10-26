@@ -74,17 +74,20 @@ class agregarProducto(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileView(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated] #Solo usuarios logueados pueden ver.
+    permission_classes = [IsAuthenticated]  # Solo usuarios logueados pueden ver.
     serializer_class = UserSerializer
     http_method_names = ['get', 'patch']
+
     def get_object(self):
-        if self.request.user.is_authenticated:
-            return self.request.user
-    def patch_object(self,request):
-        serializer = UserSerializer(data=request.data, partial=True)
+        # Devuelve el usuario autenticado
+        return self.request.user
+
+    def patch(self, request, *args, **kwargs):
+        user = self.get_object()  # Obtén el usuario autenticado
+        serializer = self.get_serializer(user, data=request.data, partial=True)  # Usa el objeto existente
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            serializer.save()  # Guarda los cambios
+            return Response(serializer.data, status=status.HTTP_200_OK)  # Cambia a 200 OK
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ListarUsuarios(generics.ListCreateAPIView):
