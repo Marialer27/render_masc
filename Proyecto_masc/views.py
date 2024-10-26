@@ -89,7 +89,6 @@ class ProfileView(generics.RetrieveUpdateAPIView):
             serializer.save()  # Guarda los cambios
             return Response(serializer.data, status=status.HTTP_200_OK)  # Cambia a 200 OK
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class ListarUsuarios(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
