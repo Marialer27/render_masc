@@ -25,5 +25,5 @@ urlpatterns = [
     path('carritoProductos/crear/', CrearProductosCarrito.as_view(), name='crearproductoencarrito'),
     path('carritoProductos/<int:pk>/actualizar/', ActualizarProductoenCarrito.as_view(), name='actualizarproductoencarrito'),
     path('carritoProductos/<int:pk>/eliminar/', EliminarItemEnCarrito.as_view(), name='eliminarproductodelcarrito'),
-    path('api/token/test/', TokenTestView.as_view(), name='token-test'),
+    path('token/test/', TokenTestView.as_view(), name='token-test'),
 ]
