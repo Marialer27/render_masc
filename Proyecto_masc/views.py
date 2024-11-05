@@ -212,3 +212,10 @@ class ActualizarProductoenCarrito(UpdateView):
 
 class EliminarItemEnCarrito(DeleteView):
     model = ProductosenCarrito
+
+
+class TokenTestView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"message": "Token is valid!"})
