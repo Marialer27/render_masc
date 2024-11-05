@@ -215,7 +215,7 @@ class EliminarItemEnCarrito(DeleteView):
 
 
 class TokenTestView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         return Response({"message": "Token is valid!"})
