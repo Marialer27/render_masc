@@ -180,6 +180,7 @@ CORS_ALLOW_HEADERS = ["Authorization", "Content-Type"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "https://masc-yps4.onrender.com",
+    "http://localhost",
 ]
 
 
