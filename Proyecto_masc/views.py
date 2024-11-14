@@ -5,6 +5,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import CarritoCompraSerializer, UserSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Carrito, CarritoCompras, Categoria, Producto, CustomUser, ProductosenCarrito
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 from .serializers import ProductoSerializer
@@ -18,35 +19,48 @@ from rest_framework.authtoken.models import Token
 
 
 class LoginView(APIView):
-    permission_classes = [AllowAny] 
+    permission_classes = [AllowAny]
+
     def post(self, request):
         # Recuperamos las credenciales y autenticamos al usuario
         email = request.data.get('email', None)
         password = request.data.get('password', None)
         user = authenticate(email=email, password=password)
-        # Si es correcto añadimos a la request la información de sesión
+        
         if user:
+            # Generamos tokens de acceso y refresco con JWT
+            refresh = RefreshToken.for_user(user)
             login(request, user)
-            token, created = Token.objects.get_or_create(user=user)
+            
             return Response(
                 {
-                    'token': token.key,
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
                     'user': UserSerializer(user).data
                 },
                 status=status.HTTP_200_OK
             )
-        # Si no es correcto devolvemos un error en la petición
+        # Si las credenciales no son correctas, devolvemos un error
         return Response(
-            status=status.HTTP_404_NOT_FOUND)
+            {"detail": "Credenciales inválidas"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
 
 class LogoutView(APIView):
-    permission_classes = [AllowAny] 
+    permission_classes = [AllowAny]
+
     def post(self, request):
-        # Borramos de la request la información de sesión
-        logout(request)
-        # Devolvemos la respuesta al cliente
-        return Response(status=status.HTTP_200_OK)
+        try:
+            # Obtenemos el token de refresco del request
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            # Revocamos el token de refresco
+            token.blacklist()
+
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
 class SignupView(generics.CreateAPIView):
     serializer_class = UserSerializer
